@@ -55,7 +55,13 @@ app.get('*', function(request, response) {
 	// replace the special strings with server generated strings
 	data = data.replace(/\$PAGE_TITLE/g, title);
 	data = data.replace(/\$PAGE_DESCRIPTION/g, description);
-	result = data.replace(/\$OG_IMAGE/g, 'https://i.imgur.com/V7irMl8.png');
+	
+	const image = manifest.metadata.image
+	if (image) {
+		data = data.replace(/\$PAGE_IMAGE/g, image);
+	}
+
+	result = data;
 	response.send(result);
 });
 
